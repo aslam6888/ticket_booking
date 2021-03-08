@@ -1,0 +1,13 @@
+{%extends 'main.html'%}
+{% block title %}Seating View{% endblock title %}
+{% block content %}
+<div class="card text-dark m-5 p-3">
+    <h3>Seating</h3>
+    <div class="d-flex">
+    {%for data in seats%}
+    
+    <div class="p-3" style="border:1px solid black;background-color:green;">{{data.seat_no}}</div>
+    {%endfor%}
+    </div>
+</div>
+{% endblock %}

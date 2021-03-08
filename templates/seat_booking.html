@@ -1,0 +1,46 @@
+{%extends 'main.html'%}
+{% block title %}Seat Availability{% endblock title %}
+{% block content %}
+<div class="card text-dark m-5" >
+    <div>
+        <h2 class="p-3">Train Details</h2>
+    </div>
+    <div class="p-3" style="font-size:20px;">{{train.train.name}} | {{train.train.time}}</div>
+    <div class="p-3 text-success">Seats Available:{{train.seats}}</div>
+    <div>        
+        <form class="p-3 text-dark" style="width:30%;" action="" method="post" >
+        {% csrf_token %}
+        
+            
+            <label class="form-label">Total Tickects</label>
+            <input type="number" class="form-control"name='total_ticket'>
+            <h3>Add Passenger</h3>
+            {{ form.management_form }}
+            <div id="form_set">
+            {% for forms in form.forms %}
+                <div class='no_error text-dark d-flex p-2' >
+                    {{ forms.as_p }}
+                </div>
+            {% endfor %}
+            </div>
+            <input type="button" class="btn btn-primary" value="Add More" id="add_more">
+            <div id="empty_form" style="display:none">
+                <div class='no_error d-flex p-2'>
+                    {{ form.empty_form.as_p }}
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-danger">Confirm Booking</button>
+        </form>
+    </div>
+    <center><h5 class="text-danger">Note :You can book only {{allowed.allowed}} seats at a time</h5></center>   
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $('#add_more').click(function() {
+        var form_idx = $('#id_form-TOTAL_FORMS').val();
+        $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+        $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
+</script>
+{% endblock content %}

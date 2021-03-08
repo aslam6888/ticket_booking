@@ -1,0 +1,35 @@
+{%extends 'main.html'%}
+{% block title %}My Bookings{% endblock title %}
+{% block content %}
+<div class="card text-dark m-5 p-3">
+    <h3>My Bookings</h3>
+    <div>
+        <table class="table">
+            <thead class="table-dark text-light">
+                <tr>
+                    <td>Train Name</td>
+                    <td>Depature</td>
+                    <td>Arrivale</td>
+                    <td>Date</td>
+                    <td>Seat No</td>
+                    <td>View</td>
+                </tr>
+            </thead>
+            <tbody>
+                {%for data in booking %}
+                    <tr>
+                        <td>{{data.seat_booking.train.train.name}}</td>
+                        <td>{{data.seat_booking.train.train.depature}}</td>
+                        <td>{{data.seat_booking.train.train.arrival}}</td>
+                        <td>{{data.seat_booking.train.date}}</td>
+                        <td>{{data.seat_no}}</td>
+                        <td><a href="/agent/seatings/{{data.seat_booking.id}}">View</a></td>
+                    </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+
+        </table>
+    </div>
+</div>
+{%endblock%}

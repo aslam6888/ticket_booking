@@ -1,0 +1,38 @@
+{%extends 'main.html'%}
+{%block title%}Booking App | Admin{%endblock%}
+{%block content%}
+<div class="card m-5">
+    
+    <div class="m-5">
+        <div class="d-flex justify-content-between mb-4 ">
+            <div><h3 class="text-dark">Agents</h3></div>
+            <div><a href="" class="btn btn-primary">Create Agent</a></div>
+        </div>
+        <table class="table">
+            <thead class="table-dark text-light">
+            <tr>
+                <td>Name</td>
+                <td>Email</td>
+                <td>DOB</td>
+                <td>Address</td>
+                <td>Phone Name</td>
+                <td>Delete</td>
+            </tr>
+            </thead>
+            <tbody class="table-light">
+            {%for data in agents%}
+            <tr>
+                <td>{{data.name}}</td>
+                <td>{{data.email}}</td>
+                <td>{{data.dob}}</td>
+                <td>{{data.address}}</td>
+                <td>{{data.phone}}</td>
+                <td><a href="agent/delete/{{data.id}}">Delete</a></td>
+            </tr>
+            {%endfor%}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,127 @@
+{%extends 'main.html'%}
+{%block title%}Booking App | Home{%endblock%}
+{%block content%}
+{%if request.user.is_superuser == False%}
+<div class="p-3 d-flex justify-content-center " style="font-size:20px">
+  <h3>{{user_id}}</h3>
+  <form action="/booking" method="post" class="d-flex">
+  {% csrf_token %}   
+    <div class="p-2">
+        <div class="font-weight-bold" style="font-weight:900">From</div>
+        <div>
+            <select name="depature" class="form-select " required>
+                {%for routes in route%}
+                <option>{{routes.depature}}</option>
+                {%endfor%}
+            </select>
+        </div>
+    </div>
+    <div class="p-2">
+        <div class="font-weight-bold" style="font-weight:900">To</div>
+        <div>
+            <select name="arrival" class="form-select" required>
+                {%for routes in route%}
+                <option>{{routes.arrival}}</option>
+                {%endfor%}
+            </select>
+        </div>
+    </div>
+    <div class="p-2">
+        <div class="font-weight-bold" style="font-weight:900">Date</div>
+        <div><input type="date" name="date"class="form-control" required min="{{today}}"></div>
+    </div>
+    <div class="m-2 p-4">
+        <button type="submit" class="btn btn-primary">Search <i class="bi bi-search"></i></button>
+    </div>
+  </form>
+</div>
+<div class="m-5">
+  <h3 class="pb-3">Recent Bookings</h3>
+  <table class="table">
+    <thead class="table-light">
+      <tr>
+          <td>Train Name</td>
+          <td>Depature</td>
+          <td>Arrival</td>
+          <td>Date</td>
+          <td>Passenger Name</td>
+          <td>Seat No</td>
+      </tr>
+    </thead>
+    <tbody class="table-light">
+    {%for data in bookings%}
+      <tr>
+          <td>{{data.seat_booking.train.train.name}}</td>
+          <td>{{data.seat_booking.train.train.depature}}</td>
+          <td>{{data.seat_booking.train.train.arrival}}</td>
+          <td>{{data.seat_booking.date}}</td>
+          <td>{{data.passenger.name}}</td>
+          <td>{{data.seat_no}}</td>
+      </tr>
+      {%endfor%}
+
+    </tbody>
+  </table>
+</div>
+{%else%}
+<div class="card m-5 p-4">
+  <div class="d-flex justify-content-between mb-4 ">
+    <div><h3 class="text-dark">Trains</h3></div>
+    
+    <div><a href="/add/chart" class="btn btn-primary">Create Chart Lists</a> <a href="/add/newtrain" class="btn btn-primary">Add Train</a></div>
+  </div>
+  <table class="table">
+    <thead class="table-light">
+      <tr>
+          <td>Train Name</td>
+          <td>Depature</td>
+          <td>Arrival</td>
+          <td>Date</td>
+      </tr>
+    </thead>
+    <tbody class="table-light">
+    {%for routes in route%}
+      <tr>
+          <td>{{routes.name}}</td>
+          <td>{{routes.depature}}</td>
+          <td>{{routes.arrival}}</td>
+          <td>{{routes.time}}</td>
+          
+      </tr>
+      {%endfor%}
+
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-between mb-4 ">
+    <div><h3 class="text-dark">Agents</h3></div>
+    <div><a href="" class="btn btn-primary">Add Agent</a></div>
+  </div>
+  <table class="table">
+    <thead class="table-light">
+      <tr>
+          <td>Name</td>
+          <td>Email</td>
+          <td>DOB</td>
+          <td>Address</td>
+          <td>Phone Name</td>
+          <td>Delete</td>
+      </tr>
+    </thead>
+    <tbody class="table-light">
+    {%for data in agents%}
+      <tr>
+        <td>{{data.name}}</td>
+        <td>{{data.email}}</td>
+        <td>{{data.dob}}</td>
+        <td>{{data.address}}</td>
+        <td>{{data.phone}}</td>
+        <td><a href="agent/delete/{{data.id}}">Delete</a></td>  
+      </tr>
+      {%endfor%}
+
+    </tbody>
+  </table>
+</div>
+{%endif%}
+{% endblock %}

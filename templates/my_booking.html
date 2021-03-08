@@ -1,0 +1,31 @@
+{%extends 'main.html'%}
+{%block title%}Booking App | My bookings{%endblock%}
+{%block content%}
+<div class="card m-4">
+    <h3 class="pb-3">Agents</h3>
+    <table class="table">
+        <thead class="table-light">
+        <tr>
+            <td>Train Name</td>
+            <td>Depature</td>
+            <td>Arrival</td>
+            <td>Agent</td>
+            <td>Date</td>
+        </tr>
+        </thead>
+        <tbody class="table-light">
+        {%for bookings in booking%}
+        <tr>
+            <td>{{bookings.train.name}}</td>
+            <td>{{bookings.train.depature}}</td>
+            <td>{{bookings.train.arrival}}</td>
+            <td>{{bookings.agent}}</td>
+            <td>{{bookings.date}}</td>
+        </tr>
+        {%endfor%}
+
+        </tbody>
+    </table>
+</div>
+
+{%endblock%}

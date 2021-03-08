@@ -1,0 +1,12 @@
+{%extends 'main.html'%}
+{% block title %}Add Train{% endblock title %}
+{% block content %}
+<div class="card m-4 text-dark p-4">
+    <h2>Add Chart</h2>
+    <form method="post" action="">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-primary">Add  Chart</button>
+    </form>
+</div>
+{%endblock%}

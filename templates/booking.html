@@ -1,0 +1,60 @@
+{%extends 'main.html'%}
+{%block title%}Booking App | Agent{%endblock%}
+{%block content%}
+<div class="p-3 d-flex justify-content-center ">
+  <form action="" method="post" class="d-flex">
+  {% csrf_token %}   
+    <div class="p-2">
+        <div class="font-weight-bold">From</div>
+        <div>
+            <select name="depature" class="form-select" required>
+                {%for routes in route%}
+                <option>{{routes.depature}}</option>
+                {%endfor%}
+            </select>
+        </div>
+    </div>
+    <div class="p-2">
+        <div class="font-weight-bold">To</div>
+        <div>
+            <select name="arrival" class="form-select" required>
+                {%for routes in route%}
+                <option>{{routes.arrival}}</option>
+                {%endfor%}
+            </select>
+        </div>
+    </div>
+    <div class="p-2">
+        <div class="font-weight-bold">Date</div>
+        <div><input type="date" name="date"class="form-control" required></div>
+    </div>
+    <div class="m-4 p-1">
+        <button type="submit" class="btn btn-primary">Search <i class="bi bi-search"></i></button>
+    </div>
+  </form>
+</div>
+{%if train%}
+{%for trains in train%}
+<div class="container">
+    <div class="card p-2 m-2 text-dark">
+        <div style="display:flex;" class="justify-content-between">
+            <div class="card-title p-3" style="font-size:30px;font-weight:600;">{{trains.train.name}}</div>
+            <div class="p-3" style="display:flex;font-size:30px;">
+                <div >{{trains.train.depature}}</div>
+                <i class="bi bi-arrow-left-right p-2"></i>
+                <div >{{trains.train.arrival}}</div>
+            </div>
+            <div class="p-3" style="font-size:15px;font-weight:600"><div>Time :{{trains.train.time}}</div><div class="text-success">Seats Available:{{trains.seats}}</div></div>
+            
+            <div class="p-3" ><a  href="seat-available/{{trains.train.name}}/{{trains.date}}" class="btn btn-primary">Check Availability</a></div>
+        </div>
+    </div>
+</div>
+{%endfor%}
+{%else%}
+<center>
+    <h2>Sorry, There is No Direct Train On This Route.<br>Please Modify Your Search and Try Again.</h2>
+    <a href="/" class="btn btn-primary">Modify Your Search</a>
+</center>
+{%endif%}
+{%endblock%}
